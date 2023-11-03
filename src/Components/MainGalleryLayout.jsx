@@ -54,27 +54,37 @@ export default function(){
         }
     }
 
-    const handleFileChange = (e) =>{
-        const file = e.target.files[0];
-        if(file){
+    const handleFileChange = (e) => {
+        const files = e.target.files;
+      
+        if (files.length > 0) {
+          const newGridItems = [];
+      
+          for (const file of files) {
             const reader = new FileReader();
             const randomNum = Math.floor(Math.random() * 9999901) + 100;
-
-                reader.onload = () => {
-                    const blob = new Blob([reader.result], { type: file.type });
-                    const blobURL = URL.createObjectURL(blob);
-                    // console.log(blobURL);
-                    const temp = {
-                        id: randomNum.toString(),
-                        img: blobURL
-                    }
-                    
-                    setGridItems(pre=>[...pre,temp])
-                };
-
-                reader.readAsArrayBuffer(file);
+      
+            reader.onload = () => {
+              const blob = new Blob([reader.result], { type: file.type });
+              const blobURL = URL.createObjectURL(blob);
+              
+              const temp = {
+                id: randomNum.toString(),
+                img: blobURL
+              };
+      
+              newGridItems.push(temp);
+      
+              if (newGridItems.length === files.length) {
+                // All files have been processed, update the state with newGridItems
+                setGridItems((prevGridItems) => [...prevGridItems, ...newGridItems]);
+              }
+            };
+      
+            reader.readAsArrayBuffer(file);
+          }
         }
-    }
+      };
 
     return (
       <div className="w-full">
@@ -97,7 +107,7 @@ export default function(){
                             <div className='text-sm font-semibold'>Add images</div>
                     </div>
                 </label>
-                <input onChange={handleFileChange} type="file" id="fileInput" style={{ display: 'none' }} />
+                <input multiple onChange={handleFileChange} type="file" id="fileInput" style={{ display: 'none' }} />
 
             </div>
         </div>
