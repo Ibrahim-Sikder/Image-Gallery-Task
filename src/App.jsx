@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import {motion,AnimatePresence} from 'framer-motion';
-import data from './data.json'
-import Temp from './Temp';
+import data from './data.json';
 import GalleryDataContext from './Contexts/GalaryDataContext';
 import Header from './Components/Header';
 import MainGalleryLayout from './Components/MainGalleryLayout';
@@ -21,9 +19,9 @@ export default function(){
 
     return(
         <GalleryDataContext.Provider value={{selectedArr,setSelectedArr,gridItems,setGridItems,handleDelete}}>
-            <div className='w-full h-fit flex justify-center pb-10 bg-blue-100'>
+            <div className='w-full h-fit flex justify-center pb-10 '>
 
-                <div className='w-11/12 md:w-8/12 border border-black mt-5 rounded-xl shadow-md shadow-gray-500 bg-white'>
+                <div className='w-11/12 md:w-8/12 border h-fit border-black mt-5 rounded-xl shadow-md shadow-gray-500 bg-white'>
 
                     <Header/>
 

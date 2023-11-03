@@ -1,4 +1,4 @@
-import { useContext} from 'react';
+import { useContext, useState} from 'react';
 import {AnimatePresence} from 'framer-motion';
 import {  DndContext,
     PointerSensor,
@@ -54,6 +54,28 @@ export default function(){
         }
     }
 
+    const handleFileChange = (e) =>{
+        const file = e.target.files[0];
+        if(file){
+            const reader = new FileReader();
+            const randomNum = Math.floor(Math.random() * 9999901) + 100;
+
+                reader.onload = () => {
+                    const blob = new Blob([reader.result], { type: file.type });
+                    const blobURL = URL.createObjectURL(blob);
+                    // console.log(blobURL);
+                    const temp = {
+                        id: randomNum.toString(),
+                        img: blobURL
+                    }
+                    
+                    setGridItems(pre=>[...pre,temp])
+                };
+
+                reader.readAsArrayBuffer(file);
+        }
+    }
+
     return (
       <div className="w-full">
 
@@ -68,10 +90,15 @@ export default function(){
                 
                     </AnimatePresence>
                 </DndContext>
-                <div  className='text-black bg-white rounded-lg  gap-2 border-gray-600 border-2 border-dashed  text-2xl aspect-square flex flex-col justify-center items-center'>
-                    <FaRegImage/>
-                    <div className='text-sm font-semibold'>Add images</div>
-                </div>
+
+                <label htmlFor="fileInput" style={{ cursor: 'pointer' }}>
+                    <div className='text-black bg-white rounded-lg  gap-2 border-gray-600 border-2 border-dashed  text-2xl aspect-square flex flex-col justify-center items-center'>
+                            <FaRegImage />
+                            <div className='text-sm font-semibold'>Add images</div>
+                    </div>
+                </label>
+                <input onChange={handleFileChange} type="file" id="fileInput" style={{ display: 'none' }} />
+
             </div>
         </div>
 
