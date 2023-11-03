@@ -6,7 +6,7 @@ import Temp from './Temp.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
 //   <React.StrictMode>
-    // <App />
-    <Temp/>
+    <App />
+    // <Temp/>
 //   </React.StrictMode>,
 )
