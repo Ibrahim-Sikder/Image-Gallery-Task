@@ -6,8 +6,8 @@ import {  DndContext,
     useSensors, } from '@dnd-kit/core';
 
 import { FaRegImage } from 'react-icons/fa';
-import GalleryDataContext from './Contexts/GalaryDataContext';
-import GridItem from './Components/GridItem';
+import GalleryDataContext from '../Contexts/GalaryDataContext';
+import GridItem from './GridItem';
 
 
 let current = -1;
